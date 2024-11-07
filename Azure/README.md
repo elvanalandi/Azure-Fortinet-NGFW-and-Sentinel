@@ -1,65 +1,115 @@
 ## Part 1: Creating an Azure Cloud-Based Lab Environment  
-**Objective**: To access the Azure portal and become familiar with the layout and key services used in the setup.
+**Objective**: To access the Azure portal and become familiar with the layout and key services used in the setup.  
 ### 1.1. Adding a Resource Group
-  - Log into the Azure portal using your account at [portal.azure.com](https://portal.azure.com). After logging in, you should see a dashboard like the image below. 
-     ![Azure Dashboard](images/azure-dashboard.png)
+  - Log into the Azure portal using your account at [portal.azure.com](https://portal.azure.com). After logging in, you should see a dashboard like the image below.
       
-  - The image below shows the default subscription view upon account creation. This subscription includes $200 in credits, valid for 30 days at no cost. You can access this **Subscription** page from the dashboard by clicking on the key like symbol.  
-    ![Azure Subscription](images/azure-subscription.png)
+     ![Azure Dashboard](images/azure-dashboard.png)  
       
-  - Next, we'll proceed with creating a resource group, which is a container for managing related Azure resources, such as virtual machines, storage accounts, virtual networks, and databases. You can access **Resource groups** from the Azure home dashboard to begin setting one up. Click on the **+ Create** icon to proceed on the next step.  
-    ![Azure Resource Groups](images/azure-resource.png)
+  - The image below shows the default subscription view upon account creation. This subscription includes $200 in credits, valid for 30 days at no cost. You can access this **Subscription** page from the dashboard by clicking on the key like symbol.
       
-  - Define the subscription, resource group name, and region for the resources. Choose a region close to your location to minimize latency.  
-    ![Azure Create a Resource Group](images/azure-create-resource.png)
+    ![Azure Subscription](images/azure-subscription.png)  
       
-  - Review the configuration details and click the **Create** button below to deploy.  
-    ![Azure Resource Group Review](images/azure-resource-review.png)
+  - Next, we'll proceed with creating a resource group, which is a container for managing related Azure resources, such as virtual machines, storage accounts, virtual networks, and databases. You can access **Resource groups** from the Azure home dashboard to begin setting one up. Click on the **+ Create** icon to proceed on the next step.
+      
+    ![Azure Resource Groups](images/azure-resource.png)  
+      
+  - Define the subscription, resource group name, and region for the resources. Choose a region close to your location to minimize latency.
+      
+    ![Azure Create a Resource Group](images/azure-create-resource.png)  
+      
+  - Review the configuration details and click the **Create** button below to deploy.
+      
+    ![Azure Resource Group Review](images/azure-resource-review.png)  
       
   - As you can see, I now have a resource group created under the name **Cybersec_Lab**.
+      
     ![Azure Resource Group Overview](images/azure-resource-overview.png)  
-
+  
 ### 1.2. Adding Virtual Networks
-  - 
-![Azure Cyber Security Lab Resource](images/azure-cyberseclab-overview.png)  
+  - Go to the **Resource Group** that we created earlier, then click on the **Create** button.
+      
+    ![Azure Cyber Security Lab Resource](images/azure-cyberseclab-overview.png)
+      
+  - By clicking on the **Create** button, you will be directed to the **Marketplace** page. In the **Search bar**, type in **Virtual Network** to find the resource. Select the **Virtual Network** option, and then click on the **Create** button at the bottom of the card. As shown in the image below, the second card is the Virtual Network we will be configuring.
+  
+    ![Azure Marketplace](images/azure-marketplace.png)
+      
+  - First, define the subscription and resource group, then provide a name for the instance and select a region that is closer to your location.
+      
+    ![Azure Virtual Network Creation](images/azure-virtual-net.png)
 
-![Azure Marketplace](images/azure-marketplace.png)  
+  - Next, set up the Azure Bastion hostname and public IP address. Azure Bastion is used to manage the virtual machines, which will be deployed later. You can create the public IP address by selecting the **Create a public IP address** link under the dropdown list of the Azure Bastion public IP address settings.  
+      
+    ![Azure Bastion Creation](images/azure-bastion.png)  
+  
+  - Going forward to the next section, we'll configure the subnets for the lab environment. The **AzureBastionSubnet** is automatically created, so we will create additional subnets for our network environment first.
+  
+    To begin, I created the DMZ subnet. As shown in the network diagram on the main page of this project, the DMZ network uses the CIDR block `10.10.100.0/24`. To define the address range, we'll set the starting address as `10.10.100.0/24`, which is within the `10.10.0.0/16` IPv4 address range. We won’t be configuring a NAT gateway in this setup because the FortiGate firewall will handle Network Address Translation (NAT) functionalities.  
+    
+    ![Azure DMZ Subnet Creation](images/azure-dmz-subnet.png)  
 
-![Azure Virtual Network Creation](images/azure-virtual-net.png)  
+  - Next, we configure the WAN subnet, as shown in the image below, using the CIDR block `10.10.1.0/24`.
+       
+    ![Azure WAN Subnet Creation](images/azure-wan-subnet.png)  
 
-![Azure Bastion Creation](images/azure-bastion.png)  
+  - Finally, I configured the Azure Bastion subnet to use the CIDR block `10.10.10.0/24`.
+    
+    ![Azure Bastion Subnet Creation](images/azure-bastion-subnet.png)
 
-![Azure DMZ Subnet Creation](images/azure-dmz-subnet.png)  
+  - Below is the complete list of subnets.
+  
+    ![Azure Lab Subnets](images/azure-subnets.png)  
 
-![Azure WAN Subnet Creation](images/azure-wan-subnet.png)  
+  - Review the configuration and create the virtual network.
+  
+    ![Azure Virtual Network Review](images/azure-virtual-net-review.png)
 
-![Azure Bastion Subnet Creation](images/azure-bastion-subnet.png)  
+  - If the deployment is successful, you will see a page like this.
+  
+    ![Azure Virtual Network Deployment](images/azure-virtual-net-deployment.png)
 
-![Azure Lab Subnets](images/azure-subnets.png)  
+### 1.3. Adding Fortigate Next-Generation Firewall  
+  - Return to the **Marketplace** and search for **Fortinet FortiGate Next-Generation Firewall**.
+  
+    ![Search Azure Fortigate in Marketplace](images/azure-market-fortigate.png)  
 
-![Azure Virtual Network Review](images/azure-virtual-net-review.png)  
+  - FortiGate offers a 30-day free trial when using the pay-as-you-go pricing model, making it an ideal choice for this setup. We'll select this pricing option to take advantage of the free trial period.
+  
+    ![Fortigate NGFW](images/azure-fortigate-ngfw.png)  
 
-![Azure Virtual Network Deployment](images/azure-virtual-net-deployment.png)  
+  - Ensure that the subscription, resource group, and region are set according to your preferences. Next, configure the username, password, FortiGate name prefix, and select the **Pay As You Go** pricing model.
+  
+    ![Fortigate Creation](images/azure-fortigate-creation.png)  
 
-![Search Azure Fortigate in Marketplace](images/azure-market-fortigate.png)  
+  - Now, insert the FortiGate VM's name.
+  
+    ![Fortigate VM Creation](images/azure-fortigate-vm-creation.png)  
 
-![Fortigate NGFW](images/azure-fortigate-ngfw.png)  
+  - This is a crucial part of the configuration, which is **Networking**. As the network diagram illustrates, the WAN network is closer to the public network, while the DMZ network connects to the internal network. Therefore, the **WAN subnet** must be placed in the **External Subnet**, while the **DMZ subnet** should be placed in the **Internal Subnet**.  
+  
+    We will leave the **Protected subnet** as it is, since we will not be using it in this setup. Additionally, the virtual network must be set to the new virtual network we created earlier.  
+  
+    Other configurations in this section are optional and can be adjusted based on personal preferences.  
+  
+    ![Fortigate Network Setup](images/azure-fortigate-net-setup.png)  
 
-![Fortigate Creation](images/azure-fortigate-creation.png)  
+  - For the **Public IP**, change the name to your preference using **Create new** link.
+  
+    ![Fortigate Public IP Setup](images/azure-fortigate-public-ip.png)  
 
-![Fortigate VM Creation](images/azure-fortigate-vm-creation.png)  
+  - We'll skip the **Advanced** setup as we won't use the **FortiManager** and another customization.
+  
+    ![Fortigate Advanced Setup](images/azure-fortigate-advanced-setup.png)  
 
-![Fortigate Network Setup](images/azure-fortigate-net-setup.png)  
+  - As a final step, review your configurations and click **Create** to deploy the FortiGate VM.
+  
+    ![Fortigate Setup Review](images/azure-fortigate-setup-review.png)
+    
+    ![Fortigate Deployment](images/azure-fortigate-deployment.png)
 
-![Fortigate Public IP Setup](images/azure-fortigate-public-ip.png)  
-
-![Fortigate Advanced Setup](images/azure-fortigate-advanced-setup.png)  
-
-![Fortigate Setup Review](images/azure-fortigate-setup-review.png)  
-
-![Fortigate Deployment](images/azure-fortigate-deployment.png)  
-
-![Fortigate Dashboard in Azure](images/azure-fortigate-dashboard.png)  
+  - To become familiar with the FortiGate interface, use the **Public IP address** of the FortiGate VM to access the dashboard.  
+  
+    ![Fortigate Dashboard in Azure](images/azure-fortigate-dashboard.png)  
 
 ![Fortigate Login](images/fortigate-login.png)  
 
