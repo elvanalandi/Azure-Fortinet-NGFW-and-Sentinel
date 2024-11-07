@@ -1,16 +1,26 @@
+## Part 1: Creating an Azure Cloud-Based Lab Environment  
+**Objective**: To access the Azure portal and become familiar with the layout and key services used in the setup.
+### 1.1. Adding a Resource Group
+  - Log into the Azure portal using your account at [portal.azure.com](https://portal.azure.com). After logging in, you should see a dashboard like the image below. 
+     ![Azure Dashboard](images/azure-dashboard.png)
+      
+  - The image below shows the default subscription view upon account creation. This subscription includes $200 in credits, valid for 30 days at no cost. You can access this **Subscription** page from the dashboard by clicking on the key like symbol.  
+    ![Azure Subscription](images/azure-subscription.png)
+      
+  - Next, we'll proceed with creating a resource group, which is a container for managing related Azure resources, such as virtual machines, storage accounts, virtual networks, and databases. You can access **Resource groups** from the Azure home dashboard to begin setting one up. Click on the **+ Create** icon to proceed on the next step.  
+    ![Azure Resource Groups](images/azure-resource.png)
+      
+  - Define the subscription, resource group name, and region for the resources. Choose a region close to your location to minimize latency.  
+    ![Azure Create a Resource Group](images/azure-create-resource.png)
+      
+  - Review the configuration details and click the **Create** button below to deploy.  
+    ![Azure Resource Group Review](images/azure-resource-review.png)
+      
+  - As you can see, I now have a resource group created under the name **Cybersec_Lab**.
+    ![Azure Resource Group Overview](images/azure-resource-overview.png)  
 
-![Azure Dashboard](images/azure-dashboard.png)  
-  
-![Azure Subscription](images/azure-subscription.png)  
-  
-![Azure Resource Groups](images/azure-resource.png)  
-  
-![Azure Create a Resource Group](images/azure-create-resource.png)  
-
-![Azure Resource Group Review](images/azure-resource-review.png)  
-
-![Azure Resource Group Overview](images/azure-resource-overview.png)  
-
+### 1.2. Adding Virtual Networks
+  - 
 ![Azure Cyber Security Lab Resource](images/azure-cyberseclab-overview.png)  
 
 ![Azure Marketplace](images/azure-marketplace.png)  
