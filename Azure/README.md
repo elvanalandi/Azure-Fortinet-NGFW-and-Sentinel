@@ -107,18 +107,27 @@
     
     ![Fortigate Deployment](images/azure-fortigate-deployment.png)
 
-  - To become familiar with the FortiGate interface, use the **Public IP address** of the FortiGate VM to access the dashboard.  
+  - To become familiar with the FortiGate interface, use the **Public IP address** of the FortiGate VM to access the FortiGate dashboard. First, navigate to the **Resource Group** and find the name of your FortiGate VM. There, you will find the Public IP address assigned to the FortiGate. Copy and paste this Public IP address into a new browser tab to access the FortiGate interface.  
   
-    ![Fortigate Dashboard in Azure](images/azure-fortigate-dashboard.png)  
+    ![Fortigate Dashboard in Azure](images/azure-fortigate-dashboard.png)
 
-![Fortigate Login](images/fortigate-login.png)  
+  - Login using the credentials that were set during the FortiGate VM setup.
+  
+    ![Fortigate Login](images/fortigate-login.png)  
 
-![Fortigate Begin Modal](images/fortigate-begin.png)  
+  - Next, click **Begin** to proceed to the dashboard.  
+    
+    ![Fortigate Begin Modal](images/fortigate-begin.png)
 
-![Fortigate Setup Modal](images/fortigate-setup.png)  
+  - Click **Later** to proceed to the dashboard.
+  
+    ![Fortigate Setup Modal](images/fortigate-setup.png)  
 
-![Fortigate Dashboard](images/fortigate-dashboard.png)  
+  - Now, we are on the Dashboard page of FortiGate. You can see all of the system information from here.
+  
+    ![Fortigate Dashboard](images/fortigate-dashboard.png)  
 
+  - 
 ![Fortigate Interfaces](images/fortigate-interfaces.png)  
 
 ![Edit DMZ Interface in Fortigate](images/fortigate-edit-dmz-interface.png)  
