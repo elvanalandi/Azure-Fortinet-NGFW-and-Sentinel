@@ -139,20 +139,36 @@
   
     ![Edit WAN Interface in Fortigate](images/fortigate-edit-wan-interface.png)  
 
-![Fortigate Interfaces Result](images/fortigate-interfaces-result.png)  
+  - This is the configuration result for the administrative access.
+  
+    ![Fortigate Interfaces Result](images/fortigate-interfaces-result.png)  
 
-![Fortigate Static Routes](images/fortigate-static-routes.png)  
+  - Next, let's review the routing configurations that the firewall has automatically set up. These routes define connectivity for both the DMZ and WAN networks. We'll explore firewall configurations in greater detail in Part 2 of this project.  
+  
+    ![Fortigate Static Routes](images/fortigate-static-routes.png)
 
-![Azure Resource Groups 2](images/azure-resource-2.png)  
+### 1.4. Adding Virtual Machines  
+  - As illustrated in the network diagram, this setup includes two virtual machines. I am using one Windows 10 and the other Ubuntu 20.04. However, feel free to customize the operating systems based on your preferences. Let's head to the **Resource groups**.  
+  
+    ![Azure Resource Groups 2](images/azure-resource-2.png)  
 
-![Azure Create a Resource Group 2](images/azure-create-resource-2.png)  
+  - Navigate to the resource group you previously created, then click the **Create** button to continue.  
+  
+    ![Azure Create a Resource Group 2](images/azure-create-resource-2.png)  
 
-![Search Windows 10 in Marketplace](images/azure-market-windows.png)  
+  - Once in the **Marketplace**, search for **Microsoft Windows 10**.
+  
+    ![Search Windows 10 in Marketplace](images/azure-market-windows.png)  
 
-![Windows 10 Creation](images/azure-windows-creation.png)  
+  - Click on the **Create** button, once you're on this page.  
+  
+    ![Windows 10 Creation](images/azure-windows-creation.png)  
 
+  - Ensure that the subscription and resource group are correct. Then, specify the virtual machine name, select the region, and choose the virtual machine size. For this setup, I selected 2 vCPUs and 4 GiB of memory.
+  
 ![Windows 10 VM Specification](images/windows-vm-specs.png)  
 
+  - 
 ![Windows 10 VM Account and Public Ports](images/windows-vm-acc-ports.png)  
 
 ![Windows 10 VM Disk](images/windows-vm-disk.png)  
