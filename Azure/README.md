@@ -166,11 +166,13 @@
 
   - Ensure that the subscription and resource group are correct. Then, specify the virtual machine name, select the region, and choose the virtual machine size. For this setup, I selected 2 vCPUs and 4 GiB of memory.
   
-![Windows 10 VM Specification](images/windows-vm-specs.png)  
+    ![Windows 10 VM Specification](images/windows-vm-specs.png)  
+
+  - Next, configure the administrator account settings and select **None** for public inbound ports, as we’ll rely on the firewall to manage port access.
+  
+    ![Windows 10 VM Account and Public Ports](images/windows-vm-acc-ports.png)  
 
   - 
-![Windows 10 VM Account and Public Ports](images/windows-vm-acc-ports.png)  
-
 ![Windows 10 VM Disk](images/windows-vm-disk.png)  
 
 ![Windows 10 VM Network](images/windows-vm-net.png)  
