@@ -127,12 +127,17 @@
   
     ![Fortigate Dashboard](images/fortigate-dashboard.png)  
 
-  - 
-![Fortigate Interfaces](images/fortigate-interfaces.png)  
+  - Network interfaces that pass through the firewall can be accessed under the **Network** section in the left menu by selecting **Interfaces**. Here, you’ll see **port1** and **port2** with the IP addresses of our subnets. **port1** serves as the gateway for the WAN network, while **port2** acts as the gateway to the DMZ network.  
+  
+    ![Fortigate Interfaces](images/fortigate-interfaces.png)  
 
-![Edit DMZ Interface in Fortigate](images/fortigate-edit-dmz-interface.png)  
-
-![Edit WAN Interface in Fortigate](images/fortigate-edit-wan-interface.png)  
+  - In this lab, we will restrict administrative access on network ports, starting with the DMZ port (**port2**). For this purpose, only **SSH** and **PING** protocols will be enabled on the DMZ port to allow simulated management and testing access. However, this setup is specifically designed for simulation and does not follow best practices for a real-world environment. In a production setting, the PING protocol would typically be disabled to avoid network scanning and probing by unauthorized users, and SSH access would be highly restricted, often limited to specific IP addresses or managed through a secure VPN connection. To edit the port settings, click on the port name. An **Edit** option will appear under the row. Then, select it to proceed.  
+  
+    ![Edit DMZ Interface in Fortigate](images/fortigate-edit-dmz-interface.png)  
+  
+  - For the WAN interface, we'll only allow **HTTPS** and **PING** protocols to restrict **SSH** access from the public network.
+  
+    ![Edit WAN Interface in Fortigate](images/fortigate-edit-wan-interface.png)  
 
 ![Fortigate Interfaces Result](images/fortigate-interfaces-result.png)  
 
