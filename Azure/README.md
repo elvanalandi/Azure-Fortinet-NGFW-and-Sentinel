@@ -232,6 +232,6 @@
     
     <kbd>![Ubuntu VM Review](images/ubuntu-vm-review.png)</kbd>  
 
-  - Everything is now set up, and we're ready to begin configuring routing and FortiGate NGFW settings in [Part 2](./Fortinet-Firewall/README.md).  
+  - Everything is now set up, and we're ready to begin configuring routing and FortiGate NGFW settings in [Part 2](../Fortinet-Firewall/README.md).  
 
     <kbd>![Ubuntu VM Deployment](images/ubuntu-vm-deployment.png)</kbd>  
