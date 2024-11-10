@@ -212,15 +212,26 @@
   
     <kbd>![Ubuntu VM Account and Public Ports](images/ubuntu-vm-acc-ports.png)</kbd>  
 
-  -
-![Ubuntu VM Disk](images/ubuntu-vm-disk.png)  
+  - Select the disk type (I chose Standard HDD) and check **Delete with VM**.
+  
+    <kbd>![Ubuntu VM Disk](images/ubuntu-vm-disk.png)</kbd>  
 
-![Ubuntu VM Network](images/ubuntu-vm-net.png)  
+  - Choose the DMZ subnet and set **None** for the Public IP. Don’t forget to check **Delete NIC when VM is deleted**.
+    
+    <kbd>![Ubuntu VM Network](images/ubuntu-vm-net.png)</kbd>  
 
-![Ubuntu VM Management](images/ubuntu-vm-mgmt.png)  
+  - In the **Management** section, set the auto-shutdown time, then proceed to the **Monitoring** section by clicking **Next**.  
+  
+    <kbd>![Ubuntu VM Management](images/ubuntu-vm-mgmt.png)</kbd>
+    
+  - Enable boot diagnostics by selecting a storage account and defining a name for the storage account.  
+  
+    <kbd>![Ubuntu VM Monitoring](images/ubuntu-vm-monitoring.png)</kbd>  
 
-![Ubuntu VM Monitoring](images/ubuntu-vm-monitoring.png)  
+  - Review the Ubuntu VM settings, and once confirmed, click **Create** to begin the deployment phase.  
+    
+    <kbd>![Ubuntu VM Review](images/ubuntu-vm-review.png)</kbd>  
 
-![Ubuntu VM Review](images/ubuntu-vm-review.png)  
+  - Everything is now set up, and we're ready to begin configuring routing and FortiGate NGFW settings in [Part 2](./Fortinet-Firewall/README.md).  
 
-![Ubuntu VM Deployment](images/ubuntu-vm-deployment.png)  
+    <kbd>![Ubuntu VM Deployment](images/ubuntu-vm-deployment.png)</kbd>  
