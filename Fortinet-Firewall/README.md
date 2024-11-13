@@ -40,7 +40,7 @@
 ### 2.2. Configuring Firewall Rules  
   -   
       
-    <kbd>![Firewall Policy](images/firewall-policy.png)</kbd>
+    <kbd>![Firewall Policy](images/new-firewall-policy.png)</kbd>
 
     <kbd>![Add DMZ to Internet Firewall Policy](images/add-dmz-to-internet-policy.png)</kbd>
 
