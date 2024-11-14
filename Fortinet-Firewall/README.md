@@ -94,3 +94,54 @@
     <kbd>![IPS Blocking Result](images/ips-block-result.png)</kbd>  
 
 ### 2.4. Configuring Log Analytics with FortiGate Event Forwarding via Syslog  
+  -   
+      
+    <kbd>![Log Analytics Workspace in Marketplace](images/log-analytics-market.png)</kbd>
+
+    <kbd>![Log Analytics Workspace Page](images/log-analytics-page.png)</kbd>  
+
+    <kbd>![Log Analytics Workspace Creation Page](images/log-analytics-creation-page.png)</kbd>  
+
+    <kbd>![Log Analytics Workspace Review](images/log-analytics-review.png)</kbd>  
+
+    <kbd>![Log Analytics Workspace Deployment](images/log-analytics-deployment.png)</kbd>  
+
+    <kbd>![Log Analytics Workspace Resource](images/log-analytics-resource.png)</kbd>  
+
+    <kbd>![Log Analytics Workspace Agents](images/log-analytics-agents.png)</kbd>  
+
+    <kbd>![Log Analytics Workspace Agent Setup](images/log-analytics-agent-setup.png)</kbd>  
+
+    <kbd>![Access Linux VM](images/log-analytics-linux-vm.png)</kbd>  
+
+    <kbd>![Connect Linux VM Via Bastion](images/log-analytics-linux-vm-bastion.png)</kbd>  
+
+    <kbd>![Provide Linux VM Credentials](images/linux-bastion-creds.png)</kbd>  
+
+    <kbd>![DMZ to Internet Firewall Policy](images/log-analytics-firewall-policy.png)</kbd>  
+
+    <kbd>![Add HTTP and HTTPS Services in Firewall Policy](images/add-https-firewall-policy.png)</kbd>  
+
+    <kbd>![Install Log Analytics Agent on Linux VM](images/install-agent-on-vm.png)</kbd>  
+
+    <kbd>![Data Collection Rules Button](images/data-collection-rules.png)</kbd>  
+
+    <kbd>![Data Collection Rules Dashboard](images/data-collection-rules-dashboard.png)</kbd>  
+
+    <kbd>![Data Collection Rule Creation](images/data-collection-rule-creation.png)</kbd>  
+
+    <kbd>![Adding Data Collection Rule Resource](images/add-data-collection-rule-resource.png)</kbd>  
+
+    <kbd>![Adding Data Source](images/add-data-source.png)</kbd>  
+
+    <kbd>![Add Data Collection Destination](images/add-destination.png)</kbd>  
+
+    <kbd>![Data Collection Rule Review](images/data-collection-rule-review.png)</kbd>  
+
+    <kbd>![Log Analytics Workspace Agent Connection](images/log-analytics-agent-connection.png)</kbd>  
+
+    <kbd>![Firewall Log Settings](images/firewall-log-settings.png)</kbd>  
+
+    <kbd>![Firewall Log Settings Setup in CLI](images/firewall-log-settings-setup-cli.png)</kbd>  
+
+    <kbd>![Firewall Log Settings Validation](images/log-settings-validation.png)</kbd>  
