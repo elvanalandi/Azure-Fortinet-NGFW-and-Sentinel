@@ -6,7 +6,7 @@ This project demonstrates a complete setup of a security lab using **Microsoft A
 This project is divided in three parts:
 1. [Setting Up Microsoft Azure Lab Environment](./Azure/README.md)
 2. [Configuring Fortinet Next-Generation Firewall](./Fortinet-Firewall/README.md)
-3. [Deploying Microsoft Sentinel](./Sentinel-Deployment/README.md)
+3. [Azure Sentinel](./Azure-Sentinel/README.md)
 
 Below is the network diagram used for this lab setup.  
 ![Network Diagram](images/network-diagram.png)  
