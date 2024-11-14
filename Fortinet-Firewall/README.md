@@ -275,4 +275,6 @@
     
   - To validate the settings, use the following command in the CLI: `get log syslogd setting`.  
     
-    <kbd>![Firewall Log Settings Validation](images/log-settings-validation.png)</kbd>  
+    <kbd>![Firewall Log Settings Validation](images/log-settings-validation.png)</kbd>
+
+    We'll proceed with deploying **Microsoft Sentinel** in [Part 3](../Azure-Sentinel/README.md).
