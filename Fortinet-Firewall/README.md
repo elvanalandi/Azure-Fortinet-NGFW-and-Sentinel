@@ -181,54 +181,98 @@
     <kbd>![IPS Blocking Result](images/ips-block-result.png)</kbd>  
 
 ### 2.4. Configuring Log Analytics with FortiGate Event Forwarding via Syslog  
-  -   
+  - In this part, we'll integrate the **Log Analytics Workspace** with Fortigate. Start by searching for **Log Analytics Workspace** in the **Marketplace** and click **Create**.  
       
-    <kbd>![Log Analytics Workspace in Marketplace](images/log-analytics-market.png)</kbd>
-
+    <kbd>![Log Analytics Workspace in Marketplace](images/log-analytics-market.png)</kbd>  
+    
     <kbd>![Log Analytics Workspace Page](images/log-analytics-page.png)</kbd>  
-
+    
+  - Set up the subscription, resource group, name, and region for the **Log Analytics Workspace** according to your preferences. Review the workspace settings before proceeding to create it.  
+    
     <kbd>![Log Analytics Workspace Creation Page](images/log-analytics-creation-page.png)</kbd>  
 
     <kbd>![Log Analytics Workspace Review](images/log-analytics-review.png)</kbd>  
-
+    
+  - Allow the deployment to complete before proceeding to the next step.  
+    
     <kbd>![Log Analytics Workspace Deployment](images/log-analytics-deployment.png)</kbd>  
-
+    
+  - Go to the new **Log Analytics Workspace** from the **Resource group**.  
+    
     <kbd>![Log Analytics Workspace Resource](images/log-analytics-resource.png)</kbd>  
-
+    
+  - Once in the **Overview** of the workspace, navigate to the **Agents** menu under the **Settings** section on the left.  
+    
     <kbd>![Log Analytics Workspace Agents](images/log-analytics-agents.png)</kbd>  
-
+    
+  - Follow the instructions to download the agent onto the Linux VM. Under **Download and onboard agent for Linux**, ensure the **Linux servers** is selected, then copy the provided command.  
+    
     <kbd>![Log Analytics Workspace Agent Setup](images/log-analytics-agent-setup.png)</kbd>  
-
+    
+  - Connect to the Ubuntu VM via **Bastion**, entering the required credentials. Once connected to the VM, set it aside temporarily, and proceed to the **Fortinet firewall** configuration.  
+    
     <kbd>![Access Linux VM](images/log-analytics-linux-vm.png)</kbd>  
 
     <kbd>![Connect Linux VM Via Bastion](images/log-analytics-linux-vm-bastion.png)</kbd>  
 
     <kbd>![Provide Linux VM Credentials](images/linux-bastion-creds.png)</kbd>  
-
+    
+  - In **Firewall Policy**, edit the **DMZ to Internet** policy. Add **HTTP** and **HTTPS** services to allow downloading files from the internet using `wget`.  
+    
     <kbd>![DMZ to Internet Firewall Policy](images/log-analytics-firewall-policy.png)</kbd>  
 
     <kbd>![Add HTTP and HTTPS Services in Firewall Policy](images/add-https-firewall-policy.png)</kbd>  
-
+    
+  - Return to the Ubuntu VM and paste the command you previously copied to initiate the download and setup of the Linux agent.  
+    
     <kbd>![Install Log Analytics Agent on Linux VM](images/install-agent-on-vm.png)</kbd>  
-
+    
+  - After that, Return to the **Agents** section and create a **Data Collection Rules** by clicking on the **Data Collection Rules** button. This will allow the agent you set up to start collecting data.  
+    
     <kbd>![Data Collection Rules Button](images/data-collection-rules.png)</kbd>  
-
+    
+  - Click on the **Create** button.  
+    
     <kbd>![Data Collection Rules Dashboard](images/data-collection-rules-dashboard.png)</kbd>  
-
+    
+  - Specify the **Name, Subscription, Resource Group and Region** for the Data Collection Rule. For the **Platform Type**, select **Linux**.  
+    
     <kbd>![Data Collection Rule Creation](images/data-collection-rule-creation.png)</kbd>  
-
+    
+  - Next, click on **Add resources** and select your Linux VM from the available options.  
+    
     <kbd>![Adding Data Collection Rule Resource](images/add-data-collection-rule-resource.png)</kbd>  
-
+    
+  - In the next section, select all the **Linux Syslog** log options under **Data source**.  
+    
     <kbd>![Adding Data Source](images/add-data-source.png)</kbd>  
-
+    
+  - Specify the **Destination type**, **Subscription**, and the **Log Analytics Workspace** that you created earlier as the **Destination Details**.  
+    
     <kbd>![Add Data Collection Destination](images/add-destination.png)</kbd>  
-
+    
+  - Review the settings for the **Data Collection Rule** and click **Create** to finalize the setup.  
+    
     <kbd>![Data Collection Rule Review](images/data-collection-rule-review.png)</kbd>  
-
+    
+  - The agent is now successfully connected to the **Log Analytics Workspace**.  
+    
     <kbd>![Log Analytics Workspace Agent Connection](images/log-analytics-agent-connection.png)</kbd>  
-
+    
+  - To ingest the syslog data into **Azure Sentinel**, go to the **Log Settings** in **Fortigate**. Then, navigate to the CLI menu on the top left side.  
+    
     <kbd>![Firewall Log Settings](images/firewall-log-settings.png)</kbd>  
-
+    
+  - Use the following commands in the CLI to configure syslog on the Fortigate:  
+    `config log syslogd setting`  
+    `set status enable`  
+    `set server 10.10.100.6 # Replace with your Linux VM IP.`  
+    `set format cef`  
+    `set mode reliable`  
+    `end`  
+    
     <kbd>![Firewall Log Settings Setup in CLI](images/firewall-log-settings-setup-cli.png)</kbd>  
-
+    
+  - To validate the settings, use the following command in the CLI: `get log syslogd setting`.  
+    
     <kbd>![Firewall Log Settings Validation](images/log-settings-validation.png)</kbd>  
