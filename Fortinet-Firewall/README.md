@@ -1,81 +1,139 @@
 ## Part 2: Configuring Routing and Advanced Fortinet Firewall Settings  
 **Objective**: To implement network routing configurations within Azure, focusing on segmenting traffic between the WAN, DMZ, and internal networks. This part will enhance security by establishing controlled access points and managing traffic flow with Fortinet's NGFW.  
 ### 2.1. Configuring Network Routing  
-  -   
+  - When configuring network routing, route tables are necessary to determine where data should be directed. To configure a route table, search for **Route tables** in the search bar at the top of the page. This will take you to the route tables page, where you can click the **Create route table** button. We'll make DMZ route table first.  
       
-    <kbd>![Route Tables Dashboard](images/route-tables-dashboard.png)</kbd>  
-  
+    <kbd>![Route Tables Dashboard](images/route-tables-dashboard.png)</kbd>
+
+  - Define the subscription, resource group, region, and name for the DMZ route table. Set **Propagate gateway routes** to **Yes** to automatically receive routes from a connected gateway, ensuring traffic is routed through the gateway to other networks.  
+    
     <kbd>![DMZ Route Table Create Page](images/dmz-route-table-creation.png)</kbd>  
     
+  - Review the DMZ route table and create it.  
+    
     <kbd>![DMZ Route Table Review Page](images/dmz-route-table-review.png)</kbd>  
-
+    
+  - Wait until your deployment is complete. After that, click the **Go to resource** button to view the DMZ route table.  
+    
     <kbd>![DMZ Route Table Deployment Page](images/dmz-route-table-deployment.png)</kbd>  
-
+    
+  - Here is the DMZ route table that has been created. No routes have been set up yet.  
+    
     <kbd>![DMZ Route Table](images/dmz-route-table.png)</kbd>  
-
+    
+  - To add a route, go to the **Routes** menu under the **Settings** section on the left and click **Add**. Specify the route name, and set the **Destination IP** to 0.0.0.0/0, with the **Next hop address** as the Fortigate IP (10.10.100.4) to direct traffic from the DMZ network to the internet.  
+    
     <kbd>![Add DMZ Route To Internet](images/dmz-add-route-to-internet.png)</kbd>  
-
+    
+  - The new route has been set. Now, we will add the subnet to the route table.  
+    
     <kbd>![DMZ Route Table New Route](images/dmz-route-table-2.png)</kbd>  
-
+    
+  - **Subnets** can also be accessed under **Settings**. Associate the subnet with the DMZ network to enable the route to direct traffic from the DMZ to the internet.  
+    
     <kbd>![DMZ Route Table Add Subnet](images/dmz-rt-add-subnet.png)</kbd>  
-
+    
+  - The final result of the DMZ route table is shown in the image below.  
+    
     <kbd>![DMZ Route Table New Subnet](images/dmz-route-table-3.png)</kbd>  
-
+    
+  - Using the same steps, we will now create the WAN route table.  
+    
     <kbd>![WAN Route Table Create Page](images/wan-route-table-creation.png)</kbd>  
-
+    
+  - The WAN network will route traffic to the DMZ network, so the **Destionation IP** is the subnet of the DMZ network (10.10.100.0/24), and the **Next hop address** is  port 1 of the Fortinet Firewall (10.10.1.4).  
+    
     <kbd>![Add WAN Route To DMZ](images/wan-add-route-to-dmz.png)</kbd>  
-
+    
+  - Here is the final result of the WAN route table.  
+    
     <kbd>![WAN Route Table](images/wan-route-table.png)</kbd>  
-
+    
+  - Next, test the route table to verify if it's working by performing a network test from the Windows 10 VM.  
+    
     <kbd>![Windows 10 VM](images/win10-vm.png)</kbd>
-
+    
+  - Connect to the Windows 10 VM using Bastion.  
+    
     <kbd>![Starting Windows 10 VM](images/start-win10-vm.png)</kbd>  
-
+    
+  - Provide the Windows 10 VM Credentials.  
+    
     <kbd>![Connect Windows 10 VM Using Bastion](images/win10-bastion.png)</kbd>  
-
+    
+  - Open **Command Prompt** from the Windows search bar or by using Windows Run (Win + R) and type `cmd`. Then, ping the Fortinet private IP address and the Linux VM to test the connectivity.  
+    
     <kbd>![Testing The Network Routing](images/routing-test.png)</kbd>  
-
+    
+  - The internet may not be working, but that's okay, as we haven't configured the firewall rules yet.  
+    
     <kbd>![Testing The Access To Internet](images/internet-access.png)</kbd>
     
 ### 2.2. Configuring Firewall Rules  
-  -   
+  - Log in to the Fortigate and go to **Firewall Policy**. Currently, there is only one rule, which is an implicit deny. To allow internet access, click the **+ Create new** button to add additional rules.  
       
-    <kbd>![Firewall Policy](images/new-firewall-policy.png)</kbd>
-
-    <kbd>![Add DMZ to Internet Firewall Policy](images/add-dmz-to-internet-policy.png)</kbd>
-
+    <kbd>![Firewall Policy](images/new-firewall-policy.png)</kbd>  
+    
+  - Change the action to **Accept**, set the incoming interface to the DMZ port (port 2) and the outgoing interface to the WAN port (port 1). The allowed services should be **PING** and **DNS**. Set both the Source and Destination to **all**. Then, activate **NAT** since the firewall will act as a NAT device between two networks.    
+    
+    <kbd>![Add DMZ to Internet Firewall Policy](images/add-dmz-to-internet-policy.png)</kbd>  
+    
+  - Allow traffic for all sessions in the logging options and enable the policy to apply the changes.  
+    
     <kbd>![DMZ to Internet Logging Options](images/dmz-to-internet-logging-options.png)</kbd>  
 
-    <kbd>![DMZ to Internet Policy](images/dmz-to-internet-policy.png)</kbd>
-
+    <kbd>![DMZ to Internet Policy](images/dmz-to-internet-policy.png)</kbd>  
+    
+  - Test the ping again, but this time ping Google's DNS server (8.8.8.8) to verify internet connectivity.  
+    
     <kbd>![Testing Internet Connection](images/test-internet-connection.png)</kbd>
-
+    
+  - In the **Forward Traffic** menu in Fortigate, the traffic should now show as successfully leaving the network, indicating that the route and firewall rules are correctly configured for internet access.  
+    
     <kbd>![Internet Connection Traffic](images/internet-connection-traffic.png)</kbd>
-
+    
+  - Think of **Virtual IP** as a form of NAT. We'll configure it to forward RDP traffic from the internet to the Windows VM.  
+    
     <kbd>![Edit Virtual IP](images/edit-virtual-ip.png)</kbd>
-
+    
+  - Return to the **Firewall Policy** and create a new policy. Set the incoming interface to the WAN network (port 1) and the outgoing interface to the DMZ network (port 2). Set the destination to the Virtual IP that you've created and the service to **RDP**. This time, disable **NAT** because the **Virtual IP** already handles port forwarding.  
+    
     <kbd>![Add Internet to RDP Policy](images/add-internet-to-rdp-policy.png)</kbd>
-
-    <kbd>![Internet to RDP Logging Options](images/internet-to-rdp-logging-options.png)</kbd>
-
-    <kbd>![Internet to RDP Policy](images/internet-to-rdp-policy.png)</kbd>
-
+    
+  - Enable the policy and allow logging for all sessions to monitor the traffic.  
+    
+    <kbd>![Internet to RDP Logging Options](images/internet-to-rdp-logging-options.png)</kbd>  
+  
+    <kbd>![Internet to RDP Policy](images/internet-to-rdp-policy.png)</kbd>  
+    
+  - Now, configure the remote desktop settings on the Windows VM. Search for **Remote desktop settings** and ensure that **Remote Desktop** is enabled. Then, go to the **Advanced settings** to configure additional options as needed.  
+    
     <kbd>![RDP Settings](images/rdp-settings.png)</kbd>
-
+    
+  - Uncheck **Require computers to use Network Level Authentication to connect** in the **Advanced settings** to allow RDP connections without the need for NLA.  
+    
     <kbd>![Advanced RDP Settings](images/advanced-rdp-settings.png)</kbd>
-
+    
+  - Turn off the firewall on the Windows VM. The easiest way to access this is by searching for **Firewall & network protection** in the Windows search bar.  
+    
     <kbd>![Turning Off Windows Firewall](images/turn-off-win-firewall.png)</kbd>
-
-    <kbd>![RDP to Windows 10 Virtual Machine](images/rdp-to-win10-vm.png)</kbd>
-
-    <kbd>![Providing Credentials](images/provide-creds.png)</kbd>
-
+    
+  - Try connecting again using **Remote Desktop Connection** from the local computer (not the VM) by entering the public IP address or the Virtual IP of the Windows VM.  
+    
+    <kbd>![RDP to Windows 10 Virtual Machine](images/rdp-to-win10-vm.png)</kbd>  
+  
+    <kbd>![Providing Credentials](images/provide-creds.png)</kbd>  
+    
+  - Click **Yes** when prompted with a certificate warning to proceed with the remote desktop connection.  
+    
     <kbd>![Certificate Verification](images/cert-verification.png)</kbd>
-
+    
+  - We should now be able to connect to the VM from the external network using Remote Desktop.  
+    
     <kbd>![Windows 10 RDP Connection](images/win10-vm-rdp-conn.png)</kbd>  
 
 ### 2.3. Configuring IPS (Intrusion Prevention System) Rules  
-  -   
+  - The routes have been set. Now, to block suspicious traffic, we can utilize the **IPS (Intrusion Prevention System)** feature from Fortinet NGFW (Next-Generation Firewall) to detect and block potential threats.  
       
     <kbd>![IPS Menu](images/ips-menu.png)</kbd>  
 
