@@ -136,19 +136,48 @@
   - The routes have been set. Now, to block suspicious traffic, we can utilize the **IPS (Intrusion Prevention System)** feature from Fortinet NGFW (Next-Generation Firewall) to detect and block potential threats.  
       
     <kbd>![IPS Menu](images/ips-menu.png)</kbd>  
-
+    
+  - Click **+ Create new** to create a new IPS sensor rule. Activate **Block malicious URLs** and select **Block**. Then, click on **+ Create New** in the **IPS Signatures** to define the signatures for blocking suspicious traffic.   
+    
     <kbd>![New IPS Rule](images/new-ips-rule.png)</kbd>  
-
+    
+  - Choose the following settings for the IPS signature rule:  
+    - Type: **Signature**
+    - Action: **Monitor**
+    - Packet logging: **Disable**
+    - Status: **Enable**
+    - Rate-based settings: **Default**
+  
+    For the signatures, select all the brute force signatures to monitor and detect any brute force attack attempts.  
+    
     <kbd>![Add Signature](images/add-signature.png)</kbd>  
-
+    
+  - To apply the IPS rule:  
+    - Edit the **Internet to Windows** firewall policy.  
+    - Scroll down to the Security Profiles section.  
+    - Add the IPS rule (in my case, the rule name is cyber_lab).  
+    - Activate the rule to enable it.
+    - Allow log traffic for all sessions and enable the policy to start monitoring and blocking suspicious traffic according to the IPS rule.
+    
     <kbd>![Edit Firewall Policy 1](images/edit-firewall-policy-1.png)</kbd>  
-
+  
     <kbd>![Edit Firewall Policy 2](images/edit-firewall-policy-2.png)</kbd>  
-
+    
+  - To create a custom IPS signature with higher sensitivity for brute force attempts, follow these steps:
+    - Go to the IPS Signatures menu.
+    - Click + Create New to create a custom signature.
+    - Copy and paste the following signature into the signature definition:
+    `F-SBID( --attack_id 7170; --name "MS.RDP.Connection.Brute.Force."; --protocol TCP; --dst_port 3389; --flow from_client; --seq 1, relative; --pattern "|e0|"; --distance 5,packet; --within 1,packet; --rate 5,20; --track SRC_IP ; )`.
+    - Save and apply the custom signature to your IPS policy for higher sensitivity in detecting RDP brute force attempts.  
+    
     <kbd>![New IPS Signature](images/new-ips-signature.png)</kbd>  
-
+    
+  - Go back to the **Intrusion Prevention** section and add the custom signature. In the **Custom IPS Signature** section, select the custom signature you created (in my case, **RDP_Brute_Force**) and apply it to the relevant policy. Enable the policy to activate the custom signature for monitoring traffic.  
+    
     <kbd>![Using Custom IPS Signature](images/custom-ips-signature.png)</kbd>  
-
+    
+  - We should now be able to block brute force attacks. I tested it by repeatedly attempting to connect via RDP using incorrect credentials, and you can see the deny traffic logs, indicating that the IPS successfully blocked the brute force attempts.  
+    
     <kbd>![IPS Blocking Result](images/ips-block-result.png)</kbd>  
 
 ### 2.4. Configuring Log Analytics with FortiGate Event Forwarding via Syslog  
