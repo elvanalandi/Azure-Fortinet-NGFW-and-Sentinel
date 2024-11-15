@@ -5,7 +5,7 @@
       
     <kbd>![Azure Sentinel Marketplace](images/sentinel-marketplace.png)</kbd>  
     
-  - Click the Create button to begin the setup.  
+  - Click the **Create** button to begin the setup.  
     
     <kbd>![Azure Sentinel Page](images/sentinel-page.png)</kbd>  
     
