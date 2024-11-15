@@ -1,5 +1,5 @@
 ## Part 3: Deploying Microsoft Sentinel for Firewall Integration, Log Analytics, and Incident Response  
-**Objective**: Set up a centralized monitoring and incident response system using Microsoft Sentinel by integrating Log Analytics workspace, integrating firewall logs, and configuring custom alerts for effective threat detection and response.  
+**Objective**: Set up a centralized monitoring and incident response system using Microsoft Sentinel by integrating Log Analytics workspace, integrating firewall logs, and configuring a custom alert for effective threat detection and response.  
 ### 3.1. Deploying Azure Sentinel  
   - Search for **Azure Sentinel** in the **Marketplace**. The correct option will appear on the right side with the title **Azure Sentinel**.  
       
@@ -76,7 +76,7 @@ In my case, the second method (checking the syslog file) provided clearer and mo
       
     <kbd>![Azure Sentinel Log](images/sentinel-log.png)</kbd>  
     
-### 3.5. Creating A Manual Alert  
+### 3.5. Creating A Manual Custom Alert  
   - Here, I created a **Scheduled query rule**so that the brute force attack can be investigated in the Incidents. From **Analytics** under **Microsoft Sentinel**, go to the scheduled query rule.  
       
     <kbd>![Azure Sentinel Schedule Query Rule](images/sentinel-sched-rule.png)</kbd>  
