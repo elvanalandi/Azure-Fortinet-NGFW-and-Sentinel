@@ -1,5 +1,16 @@
 ## Part 2: Configuring Routing and Advanced Fortinet Firewall Settings  
 **Objective**: To implement network routing configurations within Azure, focusing on segmenting traffic between the WAN, DMZ, and internal networks. This part will enhance security by establishing controlled access points and managing traffic flow with Fortinet's NGFW.  
+
+**Tools and Requirements**:  
+- Azure Account and Subscription
+- FortiGate NGFW
+- Azure Virtual Machines (Windows 10 & Ubuntu)
+- Azure Virtual Networks
+- Basic Networking Knowledge
+- SSH Client
+- Azure CLI/PowerShell
+- Basic knowledge of Remote Desktop (RDP)
+  
 ### 2.1. Configuring Network Routing  
   - When configuring network routing, route tables are necessary to determine where data should be directed. To configure a route table, search for **Route tables** in the search bar at the top of the page. This will take you to the route tables page, where you can click the **Create route table** button. We'll make DMZ route table first.  
       
