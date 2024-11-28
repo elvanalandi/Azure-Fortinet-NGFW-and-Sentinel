@@ -5,9 +5,9 @@
 - Azure Account and Subscription
 - FortiGate NGFW (via Azure Marketplace)
 - Azure Virtual Machines (Windows 10 & Ubuntu)
-- Azure Virtual Networks (VNets) for network isolation
-- Resource Group for managing resources
-- Web Browser to access the Azure Portal
+- Azure Virtual Networks (VNets)
+- Resource Group
+- Web Browser
 - SSH Client (if managing Linux VMs via SSH)
 - Azure CLI/PowerShell (optional)
 - Basic Networking Knowledge
