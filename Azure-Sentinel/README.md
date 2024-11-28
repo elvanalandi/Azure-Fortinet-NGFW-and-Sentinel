@@ -2,7 +2,7 @@
 **Objective**: Set up a centralized monitoring and incident response system using Microsoft Sentinel by integrating Log Analytics workspace, integrating firewall logs, and configuring a custom alert for effective threat detection and response.  
   
 **Tools and Requirements**:  
-- Microsoft Azure Subscription
+- Azure Account and Subscription
 - Microsoft Sentinel
 - Fortinet FortiGate Next-Generation Firewall
 - Linux Virtual Machine (log ingestion via syslog)
