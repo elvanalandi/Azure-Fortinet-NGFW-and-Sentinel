@@ -1,5 +1,18 @@
 ## Part 1: Creating an Azure Cloud-Based Lab Environment  
 **Objective**: To access the Azure portal and become familiar with the layout and key services used in the setup.  
+
+**Tools and Requirements**:  
+- Azure Account and Subscription
+- FortiGate NGFW (via Azure Marketplace)
+- Azure Virtual Machines (Windows 10 & Ubuntu)
+- Azure Virtual Networks (VNets) for network isolation
+- Resource Group for managing resources
+- Web Browser to access the Azure Portal
+- SSH Client (if managing Linux VMs via SSH)
+- Azure CLI/PowerShell (optional)
+- Basic Networking Knowledge
+- Basic FortiGate Firewall Knowledge
+  
 ### 1.1. Adding a Resource Group
   - Log into the Azure portal using your account at [portal.azure.com](https://portal.azure.com). After logging in, you should see a dashboard like the image below.
       
