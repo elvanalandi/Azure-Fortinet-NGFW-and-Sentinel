@@ -1,5 +1,15 @@
 ## Part 3: Deploying Microsoft Sentinel for Firewall Integration, Log Analytics, and Incident Response  
 **Objective**: Set up a centralized monitoring and incident response system using Microsoft Sentinel by integrating Log Analytics workspace, integrating firewall logs, and configuring a custom alert for effective threat detection and response.  
+  
+**Tools and Requirements**:  
+- Microsoft Azure Subscription
+- Microsoft Sentinel
+- Fortinet FortiGate Next-Generation Firewall
+- Linux Virtual Machine (log ingestion via syslog)
+- FortiGate Log Collector (CEF Agent)
+- Log Analytics Workspace
+- Kusto Query Language (KQL)
+  
 ### 3.1. Deploying Azure Sentinel  
   - Search for **Azure Sentinel** in the **Marketplace**. The correct option will appear on the right side with the title **Azure Sentinel**.  
       
