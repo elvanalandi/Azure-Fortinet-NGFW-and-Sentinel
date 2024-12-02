@@ -49,10 +49,61 @@
     <kbd>![Connecting Sentinel to Log Analytics Workspace](images/sentinel-to-log.png)</kbd>  
     
 ### 6. Disable the Firewall in Virtual Machine  
-
+  -   
+      
+    <kbd>![Windows Firewall](images/wf.png)</kbd>  
+  
+    <kbd>![Turn Off Windows Firewall](images/wf-off.png)</kbd>  
+  
+    <kbd>![Remote Desktop Settings](images/rdp-settings.png)</kbd>  
+  
+    <kbd>![Remote Desktop Advanced Settings](images/rdp-advanced-settings.png)</kbd>  
+    
 ### 7. Adding the Security Log Exporter Script  
-
+  -   
+      
+    <kbd>![IP Geolocation](images/ip-geo.png)</kbd>  
+  
+    <kbd>![Security Log Exporter Script](images/log-exporter-script.png)</kbd>  
+  
 ### 8. Create a Custom Log in Log Analytics Workspace  
+  -   
+      
+    <kbd>![Log Analytics Workspace Tables](images/log-analytics-table.png)</kbd>  
+  
+    <kbd>![Create A Custom Log](images/custom-log.png)</kbd>  
 
+    <kbd>![Custom Log Record Delimiter](images/custom-log-delimiter.png)</kbd>  
+
+    <kbd>![Custom Log Collection Path](images/custom-log-path.png)</kbd>  
+
+    <kbd>![Custom Log Name](images/custom-log-name.png)</kbd>  
+
+    <kbd>![Custom Log Name](images/custom-log-review.png)</kbd>  
+    
 ### 9. Visualize Attack in Map using Workbooks  
+  -   
+      
+    <kbd>![Microsoft Sentinel Logs](images/sentinel-logs.png)</kbd>  
+  
+    <kbd>![Create A New Workbook](images/create-workbook.png)</kbd>  
 
+    <kbd>![Workbook Query](images/workbook-query.png)</kbd>  
+
+    <kbd>![Workbook Map Settings](images/workbook-map-settings.png)</kbd>  
+
+    <kbd>![Geo Location Map Result](images/geo-ip-result.png)</kbd>  
+
+    <kbd>![Task Scheduler](images/taskschd.png)</kbd>  
+
+    <kbd>![Create A New Task](images/create-task.png)</kbd>  
+
+    <kbd>![Task Triggers](images/task-trigger.png)</kbd>  
+
+    <kbd>![Task Actions](images/task-action.png)</kbd>  
+
+    <kbd>![Task Conditions](images/task-condition.png)</kbd>  
+
+    <kbd>![Task Settings](images/task-settings.png)</kbd>  
+
+    <kbd>![Running Task](images/run-task.png)</kbd>  
