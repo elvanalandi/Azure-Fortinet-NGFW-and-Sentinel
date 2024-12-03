@@ -10,7 +10,7 @@
 - Kusto Query Language (KQL)
   
 ### 1. Create a Honeypot Virtual Machine  
-  -   
+  - Go to the Microsoft Azure Dashboard, search for "virtual machines", and then click **Create** > **Azure virtual machine**.  
       
     <kbd>![Creating Windows VM Basic Configuration](images/create-win-vm.png)</kbd>  
 
