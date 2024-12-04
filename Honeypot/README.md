@@ -10,41 +10,65 @@
 - Kusto Query Language (KQL)
   
 ### 1. Create a Honeypot Virtual Machine  
-  - Go to the Microsoft Azure Dashboard, search for "virtual machines", and then click **Create** > **Azure virtual machine**.  
+  - Go to the Microsoft Azure Dashboard, search for "virtual machines", and then click **Create** > **Azure virtual machine**.
+  - Specify your subscription and Resource Group (I used the Resource Group from my Azure Cybersecurity Lab project).
+  - Name your VM.
+  - Select the region closest to your location (I am using Australia East as it is closest to my location).
+  - Select "No infrastructure redundancy required" for the availability options.
+  - Select Windows 10 Pro as the Image, and choose the newest version.
+  - Choose the Size based on your preference, and ensure the VM architecture is x64.
       
     <kbd>![Creating Windows VM Basic Configuration](images/create-win-vm.png)</kbd>  
 
+  - Leave the **Disks** section as is and proceed to the **Networking** section. I created a new virtual network with subnet 10.0.0.0/24. The **Virtual Network** can be created by clicking the **Create new** button under the Virtual Network selection. Next, go to the network security group settings, select **Advanced** and then choose **Create new**. Before proceeding to the network security group settings, don't forget to check the box for **Delete public IP and NIC when VM is deleted** to ensure everything is wiped when the VM is deleted.  
+  
     <kbd>![Windows VM Networking Configuration](images/win-vm-networking.png)</kbd>  
 
+  - In the **Network security group** settings, remove all inbound rules and add a new one with the following settings:
+    - Destination port ranges: *
+    - Protocol: Any
+    - Action: Allow
+    - Priority: 100 (low)
+    - Name: Based on your preference  
+  
     <kbd>![Windows VM Network Security Group Configuration](images/win-vm-nsg.png)</kbd>  
 
+  - Next, in the **Management** section, I enabled the **Auto-shutdown** feature to save costs. You can skip this step if you prefer.  
+  
     <kbd>![Windows VM Management Configuration](images/win-vm-management.png)</kbd>  
 
+  - In **Monitoring** section, I enabled the boot diagnostics feature to monitor the VM. You can skip this step if you don't wish to monitor the VM. When finished, click the **Review + create** button.  
+  
     <kbd>![Windows VM Monitoring Configuration](images/win-vm-monitoring.png)</kbd>  
   
 ### 2. Create a Log Analytics Workspace  
-  -   
+  - Now, for the **Log Analytics Workspace**, search for it in the search bar at the top and select **Create Log Analytics Workspace**. Specify the resource group, create a name, and select the same region as the VM. Click **Review + create** to finish the configuration.  
       
     <kbd>![Creating Log Analytics Workspace Configuration](images/create-log-analytics.png)</kbd>  
 
 ### 3. Configure Microsoft Defender for Cloud  
-  -   
+  - Next, activate **Microsoft Defender for Cloud** to collect the Windows security events. First, search for **Microsoft Defender for Cloud**, scroll down to **Environment settings**, select the subscription, and then go to the Log Analytics workspace that has been deployed (Honeypot-Log).  
       
     <kbd>![Microsoft Defender for Cloud Configuration](images/ms-defender.png)</kbd>  
   
+  - In the **Settings | Defender plans**, turn on **Foundational CSPM** (Cloud Security Posture Management).  
+  
     <kbd>![Microsoft Defender for Cloud Plans](images/defender-plans.png)</kbd>  
-      
+
+  - For **Settings | Data collection**, select **All Events** and then click the **Save** button.  
+  
     <kbd>![Microsoft Defender for Cloud Data Collection](images/defender-data-collection.png)</kbd>  
 
 ### 4. Connect Log Analytics Workspace to Virtual Machine  
-  -   
+  - Now, connect the Log Analytics Workspace to the Virtual Machine to enable analytics. Search for **Log Analytics Workspaces**, select the workspace, then go to **Virtual machines** > select the virtual machine's name, and click **Connect**.  
       
     <kbd>![Virtual Machine Connections](images/vm-connection.png)</kbd>  
 
     <kbd>![Connecting VM to Log Analytics Workspace](images/connect-vm-to-log.png)</kbd>  
 
 ### 5. Configure Microsoft Sentinel  
-  -   
+  - Search for **Microsoft Sentinel** > click **Create Microsoft Sentinel** > select the Log Analytics workspace and click **Add**.
+    > Microsoft Sentinel will now be able to collect the log data.  
       
     <kbd>![Connecting Sentinel to Log Analytics Workspace](images/sentinel-to-log.png)</kbd>  
     
