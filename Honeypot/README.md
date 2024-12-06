@@ -73,36 +73,66 @@
     <kbd>![Connecting Sentinel to Log Analytics Workspace](images/sentinel-to-log.png)</kbd>  
     
 ### 6. Disable the Firewall in Virtual Machine  
-  -   
+  > The firewall must be disabled to connect to the Virtual Machine, which increases the likelihood of attackers accessing the honeypot. This is intentional, as the goal is to analyse the attackers' behavior within our system. 
+  - First, navigate to **Virtual Machines** and locate the honeypot VM you previously created.
+  - Copy the VM's IP address and connect to it via Remote Desktop Protocol (RDP) from the Windows host machine. Alternatively, you can use Bastion if it is set up.
+  - Log in to the VM and accept the certificate warning.
+  - Select **No** for all prompts under **Choose privacy settings for your device**.
+  - Open the **Start** menu and search for `wf.msc` (Windows Defender Firewall). Alternatively, press **Windows + R**, type `wf.msc`, and press Enter. 
       
     <kbd>![Windows Firewall](images/wf.png)</kbd>  
   
+  - Click **Windows Defender Firewall Properties**,  set the **Firewall state** to **Off** for **Domain Profile**, **Private Profile**, and **Public Profile**. Once done, click the **Apply** button, followed by **OK** button.  
+  
     <kbd>![Turn Off Windows Firewall](images/wf-off.png)</kbd>  
+    
+  - To expose the honeypot and attract attackers, we need to disable Network Level Authentication (NLA) in the Remote Desktop settings, making the system accessible for analysis. Open **Remote Desktop settings** using the Windows search, enable **Remote Desktop**, and proceed to **Advanced settings**.  
   
     <kbd>![Remote Desktop Settings](images/rdp-settings.png)</kbd>  
+    
+  - In the **Advanced settings**, uncheck **Require computers to use Network Level Authentication to connect** and confirm the changes by clicking **Proceed anyway**.  
   
     <kbd>![Remote Desktop Advanced Settings](images/rdp-advanced-settings.png)</kbd>  
     
 ### 7. Adding the Security Log Exporter Script  
-  -   
+  `The Security Log Exporter script will ingest failed Windows login events (Event ID 4625) and enrich them with geolocation data from the source IP address.`
+  - Go to the IP Geolocation web page, create an account, and copy the API key from the Dashboard.  
       
     <kbd>![IP Geolocation](images/ip-geo.png)</kbd>  
-  
+    
+  - Return to the Honeypot VM and open **Powershell ISE**. If prompted to set up Edge, click **Set up Edge without signing in**.
+  - In PowerShell ISE, select **New Script**.
+  - Copy the [Powershell script](https://github.com/joshmadakor1/Sentinel-Lab/blob/main/Custom_Security_Log_Exporter.ps1) created by joshmadakor1.
+  - Paste the script into PowerShell, replacing **$API_KEY** value with your own API key.
+  - Save the script to the desktop with a preferred name.
+  - Run the PowerShell script by clicking the green play button to generate the log data. This will create a new log file named **failed_rdp.log** in the location: "C:\ProgramData\failed_rdp.log".  
+    
     <kbd>![Security Log Exporter Script](images/log-exporter-script.png)</kbd>  
   
 ### 8. Create a Custom Log in Log Analytics Workspace  
-  -   
+  - Create a custom log to import data from the IP Geolocation service into Azure Sentinel. Navigate to **Log Analytics Workspace**, go to the **Tables**, and then select **New custom log (MMA-based)**.  
       
     <kbd>![Log Analytics Workspace Tables](images/log-analytics-table.png)</kbd>  
-  
+    
+  - Return to the VM and navigate to the location of **failed_rdp.log** (`C:\ProgramData\failed_rdp.log`). Select all the contents (**Ctrl + A**) and copy them (**Ctrl + C**). Paste the contents into Notepad on the host PC and save the file as **failed_rdp.log**.
+  - In the **Sample** section of the Custom Log wizard, specify the path to the newly created **failed_rdp.log** on the host PC.  
+    
     <kbd>![Create A Custom Log](images/custom-log.png)</kbd>  
-
+    
+  - Make sure the **Record delimiter** is set to **New line**, then click the **Next** button.  
+  
     <kbd>![Custom Log Record Delimiter](images/custom-log-delimiter.png)</kbd>  
-
+    
+  - For the **Collection paths**, select the type as **Windows** and set the path to **C:\ProgramData\failed_rdp.log**.  
+  
     <kbd>![Custom Log Collection Path](images/custom-log-path.png)</kbd>  
-
+    
+  - Give the custom log a name. The name will automatically end with **_CL** automatically.  
+  
     <kbd>![Custom Log Name](images/custom-log-name.png)</kbd>  
-
+    
+  - Review the configuration and click **Create**.  
+  
     <kbd>![Custom Log Name](images/custom-log-review.png)</kbd>  
     
 ### 9. Visualize Attack in Map using Workbooks  
