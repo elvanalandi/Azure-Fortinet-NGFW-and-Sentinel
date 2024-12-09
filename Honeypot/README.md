@@ -133,31 +133,92 @@
     
   - Review the configuration and click **Create**.  
   
-    <kbd>![Custom Log Name](images/custom-log-review.png)</kbd>  
+    <kbd>![Custom Log Name](images/custom-log-review.png)</kbd>
+    
+  - Check the new custom log by running a query in Microsoft Sentinel Logs. In the **Logs** section, use the custom log name, which ends with **_CL**, to run the query.  
+  
+    <kbd>![Microsoft Sentinel Logs](images/sentinel-logs.png)</kbd>  
     
 ### 9. Visualize Attack in Map using Workbooks  
-  -   
-      
-    <kbd>![Microsoft Sentinel Logs](images/sentinel-logs.png)</kbd>  
+  - The final step is to visualize the attack on a map using **Workbooks** for easier analysis.
+  - First, open **Microsoft Sentinel**. On the **Overview** page, click **Workbooks**, then click **Add workbook** and select **Edit**.
+  - Remove default widgets by clicking the three dots and selecting **Remove**.
+  - Click **Add** and then select **Add query**.
   
     <kbd>![Create A New Workbook](images/create-workbook.png)</kbd>  
-
+    
+  - Copy and paste the following query into the query window then click **Run Query**.  
+    ```
+    FAILED_RDP_WITH_GEOIP_CL
+    | extend Fields = split(RawData, ",")
+    | extend Latitude = tostring(split(Fields[0], ":")[1])
+    | extend Longitude = tostring(split(Fields[1], ":")[1])
+    | extend DestinationHost = tostring(split(Fields[2], ":")[1])
+    | extend Username = tostring(split(Fields[3], ":")[1])
+    | extend SourceHost = tostring(split(Fields[4], ":")[1])
+    | extend State = tostring(split(Fields[5], ":")[1])
+    | extend Country = tostring(split(Fields[6], ":")[1])
+    | extend Label = tostring(split(Fields[7], ":")[1])
+    | extend Timestamp = tostring(split(Fields[8], ":")[1])
+    | summarize event_count=count() by SourceHost, Latitude, Longitude, Country, Label, DestinationHost
+    | where DestinationHost != "samplehost"
+    | where SourceHost != ""
+    ```
+    Replace **FAILED_RDP_WITH_GEOIP** with the name of your custom log.  
+  
     <kbd>![Workbook Query](images/workbook-query.png)</kbd>  
-
+    
+  - Once the results appear, open the **Visualization** dropdown menu and select **Map**.  
+  - Configure the settings by selecting **Map Settings**:
+  
+    **Layout Settings**:  
+    - **Location info using**: Latitude/Longitude  
+    - **Latitude**: Latitude  
+    - **Longitude**: Longitude  
+    - **Size by**: event_count
+      
+    **Color Settings**:  
+    - **Coloring Type**: Heatmap  
+    - **Color by**: event_count  
+    - **Aggregation for color**: Sum of values  
+    - **Color palette**: Green to Red  
+    
+    **Metric Settings**:  
+    - **Metric Label**: Label  
+    - **Metric Value**: event_count  
+  - Click **Apply**, then **Save and Close**.  
+  - Save the workbook with your preferred name, ensuring it's in the same region and resource group. Refresh the map to display incoming failed RDP attack data.
+  
     <kbd>![Workbook Map Settings](images/workbook-map-settings.png)</kbd>  
-
+    
+  - This is the result of the workbook. However, the attack data will not update automatically. To fetch the latest data, you need to rerun the PowerShell script from the Honeypot VM.  
+  
     <kbd>![Geo Location Map Result](images/geo-ip-result.png)</kbd>  
-
+    
+  - To automate the script execution, configure Task Scheduler on the Honeypot VM. Open **Windows Run** (press **Windows + R**) and search `taskschd.msc` to open Task Scheduler.   
+  
     <kbd>![Task Scheduler](images/taskschd.png)</kbd>  
-
+    
+  - In Task Scheduler, click **Create Task**. In the **General** section, provide a name for the task and select **Run whether user is logged on or not**.   
+  
     <kbd>![Create A New Task](images/create-task.png)</kbd>  
-
+    
+  - In **Triggers** tab, click **New**, set the **Begin the task** dropdown to **At startup** and check the **Enabled** option.   
+  
     <kbd>![Task Triggers](images/task-trigger.png)</kbd>  
-
+    
+  - In the **Actions** tab, click **New**, set the **Action** dropdown to **Start a program**, and enter `powershell.exe` in the **Program/script** field. In the **Add arguments** field, enter: `-ExecutionPolicy Bypass -File "C:\Path\To\YourScript.ps1"`. Replace `C:\Path\To\YourScript.ps1` with the path to your PowerShell script created earlier.   
+  
     <kbd>![Task Actions](images/task-action.png)</kbd>  
-
+    
+  - In the **Conditions** tab, uncheck or remove all the options.   
+  
     <kbd>![Task Conditions](images/task-condition.png)</kbd>  
-
+    
+  - In the **Settings** tab, check **Allow task to be run on demand** and **If the running task does not end when requested, force it to stop**. Select **Do not start a new instance** from the dropdown menu.   
+  
     <kbd>![Task Settings](images/task-settings.png)</kbd>  
-
+    
+  - Click **OK** and enter the credentials to apply the changes and activate the new task in Task Scheduler.   
+  
     <kbd>![Running Task](images/run-task.png)</kbd>  
